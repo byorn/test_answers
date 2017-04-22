@@ -36,7 +36,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
-public class TestAnswer1_2EmployeesTeamMatesInAProject {
+public class Answer1_2EmployeesTeamMatesInAProject_Tests {
     @Autowired
     private TestEntityManager entityManager;
 
@@ -89,9 +89,6 @@ public class TestAnswer1_2EmployeesTeamMatesInAProject {
                 }
 
             });
-
-
-
         });
 
         return teamMembers;

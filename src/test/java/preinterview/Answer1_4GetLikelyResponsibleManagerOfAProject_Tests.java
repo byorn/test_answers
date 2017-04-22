@@ -37,7 +37,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
-public class TestAnswer1_4GetLikelyResponsibleManagerOfAProject {
+public class Answer1_4GetLikelyResponsibleManagerOfAProject_Tests {
 
     @Autowired
     private TestEntityManager entityManager;
@@ -64,7 +64,7 @@ public class TestAnswer1_4GetLikelyResponsibleManagerOfAProject {
 
     }
 
-    public Employee getLikelyResponsibleManagerDecidedByNumberOfWorkers(Project project){
+    private Employee getLikelyResponsibleManagerDecidedByNumberOfWorkers(Project project){
 
        Map<Employee,Integer> managerAndCount = new HashMap<>() ;
 

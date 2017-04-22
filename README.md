@@ -9,7 +9,7 @@ Note: For Question 2, These are not JUnit Tests. The source files should be view
 
 How to run
 ----------
-1 _ clone this repository on to your local machine using git
-2 _ mvn clean install
+1 ) clone this repository on to your local machine using git <br/>
+2 ) mvn clean install
 
 

@@ -47,15 +47,15 @@ public class Answer1_3ReturnCommonManager_Tests {
     private ProjectEmployeeRepository projectTeamRepository;
 
 
-
     /**
      * Answer 1.3 - For given two employees return common manager
-     *
+     * <p>
      * John and Jack's Common Manager is Lisa
      */
     @Test
     public void testTwoEmployeesHavingACommonManager() {
 
+        //Data Setup --------------------------------
         Employee john = new Employee("John");
         Employee jack = new Employee("Jack");
         Employee lisa = new Employee("Lisa");
@@ -65,6 +65,7 @@ public class Answer1_3ReturnCommonManager_Tests {
         entityManager.persist(john);
         entityManager.persist(jack);
         entityManager.persist(lisa);
+        // -------------------------------------------
 
         Employee expectedLisa = getCommonManager(john, jack);
 
@@ -74,12 +75,13 @@ public class Answer1_3ReturnCommonManager_Tests {
 
     /**
      * Answer 1.3 - For given two employees return common manager
-     *
+     * <p>
      * John and Lucy Do not have a common Manager - returns null
      */
     @Test
     public void testTwoEmployeesWithoutACommonManager() {
 
+        //Data Setup --------------------------------
         Employee john = new Employee("John");
         Employee lucy = new Employee("Lucy");
         Employee lisa = new Employee("Lisa");
@@ -92,17 +94,18 @@ public class Answer1_3ReturnCommonManager_Tests {
         entityManager.persist(lucy);
         entityManager.persist(lisa);
         entityManager.persist(leonard);
+        // -------------------------------------------
 
         Employee expectingNull = getCommonManager(john, lucy);
 
         assertThat(expectingNull).isEqualTo(null);
     }
 
-    private Employee getCommonManager(Employee employee1, Employee employee2){
+    private Employee getCommonManager(Employee employee1, Employee employee2) {
 
         Employee commonManager = null;
 
-        if(employee1.getManager()!=null && employee1.getManager().equals(employee2.getManager())){
+        if (employee1.getManager() != null && employee1.getManager().equals(employee2.getManager())) {
             commonManager = employee1.getManager();
         }
 

@@ -12,12 +12,10 @@ import java.util.Set;
 public class Employee {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String firstName;
 
-//    @OneToMany(mappedBy = "manager", fetch = FetchType.EAGER)
-//    private List<Employee> subordinates;
+    private String firstName;
 
     @JoinColumn(name = "manager_id", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.EAGER)
@@ -28,13 +26,6 @@ public class Employee {
         this.firstName = firstName;
     }
 
-    @Override
-    public String toString() {
-        return String.format(
-                "Employee[id=%d, firstName='%s']",
-                id, firstName);
-    }
-
     public String getFirstName() {
         return firstName;
     }
@@ -42,7 +33,6 @@ public class Employee {
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
-
 
     public Employee getManager() {
         return manager;
@@ -59,6 +49,14 @@ public class Employee {
     public void setId(Long id) {
         this.id = id;
     }
+
+    @Override
+    public String toString() {
+        return String.format(
+                "Employee[id=%d, firstName='%s']",
+                id, firstName);
+    }
+
 
     @Override
     public boolean equals(Object o) {

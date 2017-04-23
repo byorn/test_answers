@@ -1,7 +1,6 @@
 package preinterview.model;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Objects;
 
 /**
@@ -11,20 +10,13 @@ import java.util.Objects;
 public class Project {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
 
 
     public Project(String name) {
         this.name = name;
-    }
-
-    @Override
-    public String toString() {
-        return String.format(
-                "Project[id=%d, name='%s']",
-                id, name);
     }
 
     public String getName() {
@@ -35,13 +27,19 @@ public class Project {
         this.name = name;
     }
 
-
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return String.format(
+                "Project[id=%d, name='%s']",
+                id, name);
     }
 
     @Override

@@ -10,9 +10,8 @@ import java.util.Objects;
 public class ProjectEmployee {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
 
     @JoinColumn(name = "employee_id", referencedColumnName = "id")
     @ManyToOne
@@ -21,14 +20,6 @@ public class ProjectEmployee {
     @JoinColumn(name = "project_id", referencedColumnName = "id")
     @ManyToOne
     private Project project;
-
-
-    @Override
-    public String toString() {
-        return String.format(
-                "ProjectEmployee[id=%d]",
-                id, id);
-    }
 
     public Employee getEmployee() {
         return employee;
@@ -52,6 +43,13 @@ public class ProjectEmployee {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return String.format(
+                "ProjectEmployee[id=%d]",
+                id, id);
     }
 
     @Override

@@ -33,11 +33,41 @@ import static org.apache.http.HttpHeaders.USER_AGENT;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class TestAnswer2_1_2URLCallingScript {
+public class TestAnswer2_Tests {
 
 
+    /**
+     * Answer to Question 2.1
+     **/
+    class Response {
+
+        String url;
+        int httpStatusCode;
+
+        public String getUrl() {
+            return url;
+        }
+
+        public void setUrl(String url) {
+            this.url = url;
+        }
+
+        public int getHttpStatusCode() {
+            return httpStatusCode;
+        }
+
+        public void setHttpStatusCode(int httpStatusCode) {
+            this.httpStatusCode = httpStatusCode;
+        }
+    }
+
+    /**
+     * Answer to Question 2.2 & 2.3
+     **/
     @Test
     public void test_Calling_4_URLS_And_Saving_Response_To_DB() {
+
+        String constant = "test.com";
 
         String[] urls = {"http://www.google.com",
                 "http://www.google.com",
@@ -46,29 +76,30 @@ public class TestAnswer2_1_2URLCallingScript {
 
 
         for (String url : urls) {
-
             HttpClient client = HttpClientBuilder.create().build();
             HttpGet request = new HttpGet(url);
 
             request.addHeader("User-Agent", USER_AGENT);
             try {
-                HttpResponse response = client.execute(request);
 
-                if(url.contains("test.com")){
+                HttpResponse response = client.execute(request);
+                Response myAnswerResponse = new Response();
+                myAnswerResponse.setUrl(url);
+                myAnswerResponse.setHttpStatusCode(response.getStatusLine().getStatusCode());
+
+                /** db.save(myAnswerResponse); **/
+
+                if (url.contains(constant)) {
                     System.out.println(response);
                 }
-                // get response content and
-                // db.save(:response);
 
             } catch (IOException e) {
                 e.printStackTrace();
-                //log error
+
             }
-
-            //db.save(response);
-
         }
         assert true;
     }
+
 
 }

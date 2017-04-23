@@ -21,6 +21,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import preinterview.model.Employee;
 import preinterview.model.Project;
@@ -53,13 +54,15 @@ public class Answer1_1DataModel_Tests {
     @Test
     public void testFindEmployeesWorkingForAManager() {
 
-
+        //Data Setup: --------------------------------------
         Employee manager = new Employee("Lisa");
         Employee employee = new Employee("John");
         employee.setManager(manager);
 
         entityManager.persist(manager);
         entityManager.persist(employee);
+        // --------------------------------------------------
+
 
         List<Employee> subordinates = employeeRepository.findByManager(manager);
 
@@ -73,16 +76,14 @@ public class Answer1_1DataModel_Tests {
     @Test
     public void testFindEmployeesWorkingForAProject() {
 
-        //set up the data
+        //Data Setup -------------------------------------
         Employee john = new Employee("John");
         Project projectA = new Project("Project-A");
         Project projectB = new Project("Project-B");
 
-
         entityManager.persist(john);
         entityManager.persist(projectA);
         entityManager.persist(projectB);
-
 
         ProjectEmployee projectEmployeeForA = new ProjectEmployee();
         projectEmployeeForA.setProject(projectA);
@@ -93,11 +94,11 @@ public class Answer1_1DataModel_Tests {
         projectEmployeeForB.setProject(projectB);
         projectEmployeeForB.setEmployee(john);
         entityManager.persist(projectEmployeeForB);
+        // ----------------------------------------------
+
 
         List<ProjectEmployee> projectEmployees = projectEmployeeRepository.findByEmployee(john);
 
-
         assertThat(projectEmployees).extracting(ProjectEmployee::getEmployee).containsOnly(john);
-
     }
 }

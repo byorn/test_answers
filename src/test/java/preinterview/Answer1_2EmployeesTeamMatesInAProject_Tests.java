@@ -46,24 +46,23 @@ public class Answer1_2EmployeesTeamMatesInAProject_Tests {
     private ProjectEmployeeRepository projectTeamRepository;
 
 
-
     /**
      * Answer 1.2 - For a given employee return team mates on a Project
-     *
      */
     @Test
     public void testGetTeamMembersForEmployee() {
 
-        //Data Setup
+        //Data Setup ------------------------------------
         Employee john = new Employee("John");
         Project projectA = new Project("Project-A");
         Project projectB = new Project("Project-B");
         Project projectC = new Project("Project-C");
 
-        dataSetup_JohnWorksOnProjectAandB(john,projectA,projectB);
+        dataSetup_JohnWorksOnProjectAandB(john, projectA, projectB);
         dataSetup_JackWorksOnProjectA(projectA);
         dataSetup_LucyWorksOnProjectB(projectB);
         dataSetup_JameWorksOnProjectC(projectC);
+        // --------------------------------------------------
 
         //John's Team Mates Should Be Jack And Lucy
         Set<Employee> teamMembers = testGetTeamMembersForEmployee(john);
@@ -74,7 +73,7 @@ public class Answer1_2EmployeesTeamMatesInAProject_Tests {
 
     }
 
-    private Set<Employee> testGetTeamMembersForEmployee(Employee employee){
+    private Set<Employee> testGetTeamMembersForEmployee(Employee employee) {
 
         Set<Employee> teamMembers = new HashSet<>();
 
@@ -84,7 +83,7 @@ public class Answer1_2EmployeesTeamMatesInAProject_Tests {
             List<ProjectEmployee> listOfEmployeesForTheProject = projectTeamRepository.findByProject(obj.getProject());
             listOfEmployeesForTheProject.forEach(projectEmployee -> {
 
-                if(!projectEmployee.getEmployee().equals(employee)) {
+                if (!projectEmployee.getEmployee().equals(employee)) {
                     teamMembers.add(projectEmployee.getEmployee());
                 }
 
@@ -97,13 +96,9 @@ public class Answer1_2EmployeesTeamMatesInAProject_Tests {
 
     private void dataSetup_JohnWorksOnProjectAandB(Employee john, Project projectA, Project projectB) {
 
-
-
-
         entityManager.persist(john);
         entityManager.persist(projectA);
         entityManager.persist(projectB);
-
 
         ProjectEmployee projectEmployeeForA = new ProjectEmployee();
         projectEmployeeForA.setProject(projectA);
@@ -119,11 +114,8 @@ public class Answer1_2EmployeesTeamMatesInAProject_Tests {
     private void dataSetup_JackWorksOnProjectA(Project projectA) {
 
         Employee jack = new Employee("Jack");
-
-
         entityManager.persist(jack);
         entityManager.persist(projectA);
-
         ProjectEmployee projectEmployeeForA = new ProjectEmployee();
         projectEmployeeForA.setProject(projectA);
         projectEmployeeForA.setEmployee(jack);
@@ -135,10 +127,8 @@ public class Answer1_2EmployeesTeamMatesInAProject_Tests {
     private void dataSetup_LucyWorksOnProjectB(Project projectB) {
 
         Employee lucy = new Employee("Lucy");
-
         entityManager.persist(lucy);
         entityManager.persist(projectB);
-
         ProjectEmployee projectEmployee = new ProjectEmployee();
         projectEmployee.setProject(projectB);
         projectEmployee.setEmployee(lucy);
@@ -150,10 +140,8 @@ public class Answer1_2EmployeesTeamMatesInAProject_Tests {
     private void dataSetup_JameWorksOnProjectC(Project projectC) {
 
         Employee lucy = new Employee("James");
-
         entityManager.persist(lucy);
         entityManager.persist(projectC);
-
         ProjectEmployee projectEmployee = new ProjectEmployee();
         projectEmployee.setProject(projectC);
         projectEmployee.setEmployee(lucy);

@@ -49,54 +49,52 @@ public class Answer1_4GetLikelyResponsibleManagerOfAProject_Tests {
     private ProjectEmployeeRepository projectEmployeeRepository;
 
 
-
     /**
      * Answer 1.4 - Get Likely responsible manager for a project
      **/
     @Test
     public void testGetLikelyResponsibleManagerDecidedByNumberOfWorkers() {
 
-       Project project = new Project("Project-A");
-       dataSetup(project);
+        Project project = new Project("Project-A");
+        dataSetup(project);
 
-       Employee employee = getLikelyResponsibleManagerDecidedByNumberOfWorkers(project);
-       assertThat(employee.getFirstName()).isEqualTo("Lisa");
+        Employee employee = getLikelyResponsibleManagerDecidedByNumberOfWorkers(project);
+        assertThat(employee.getFirstName()).isEqualTo("Lisa");
 
     }
 
-    private Employee getLikelyResponsibleManagerDecidedByNumberOfWorkers(Project project){
 
-       Map<Employee,Integer> managerAndCount = new HashMap<>() ;
+    private Employee getLikelyResponsibleManagerDecidedByNumberOfWorkers(Project project) {
+
+        Map<Employee, Integer> managerAndCount = new HashMap<>();
 
         List<ProjectEmployee> projectEmployeeList = projectEmployeeRepository.findByProject(project);
 
-        for(ProjectEmployee projectEmployee: projectEmployeeList){
-            //If Employee Does Not Report to AnyOne He/She is the owner of the Company and Owner of the Project
-            if(projectEmployee.getEmployee().getManager()==null){
+        for (ProjectEmployee projectEmployee : projectEmployeeList) {
+
+            //Assumption: If Employee Does Not Report to AnyOne He/She is the owner of the Company and Owner of the Project
+            if (projectEmployee.getEmployee().getManager() == null) {
                 return projectEmployee.getEmployee();
             }
-
-            if(managerAndCount.get(projectEmployee.getEmployee().getManager())!=null){
+            if (managerAndCount.get(projectEmployee.getEmployee().getManager()) != null) {
 
                 Integer count = managerAndCount.get(projectEmployee.getEmployee().getManager());
                 count += 1;
-
-            }else{
+            } else {
                 Employee manager = projectEmployee.getEmployee().getManager();
-                managerAndCount.put(manager,new Integer(1));
+                managerAndCount.put(manager, new Integer(1));
             }
 
-         }
-
+        }
         return decideLikelyManagerBasedOnMaximumCount(managerAndCount);
     }
 
-    private Employee decideLikelyManagerBasedOnMaximumCount(Map<Employee,Integer> managerAndCount){
+    private Employee decideLikelyManagerBasedOnMaximumCount(Map<Employee, Integer> managerAndCount) {
 
         Employee manager = null;
         Integer largestCount = 0;
         for (Map.Entry<Employee, Integer> entry : managerAndCount.entrySet()) {
-            if(entry.getValue()>largestCount){
+            if (entry.getValue() > largestCount) {
                 manager = entry.getKey();
                 largestCount = entry.getValue();
             }
@@ -105,6 +103,14 @@ public class Answer1_4GetLikelyResponsibleManagerOfAProject_Tests {
     }
 
 
+    /**
+     * John and Jack Report to Lisa
+     * John and Jack are assigned to Project A
+     * Note: Lisa the manager is not assigned to a project
+     * Note: All Reporting Managers are not assigned to a project.
+     * James is assigned to Project A
+     * @param project
+     */
     private void dataSetup(Project project) {
 
         Employee john = new Employee("John");
@@ -143,9 +149,6 @@ public class Answer1_4GetLikelyResponsibleManagerOfAProject_Tests {
         projectEmployee3.setProject(project);
         projectEmployee3.setEmployee(james);
         entityManager.persist(projectEmployee3);
-
-
-
 
     }
 
